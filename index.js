@@ -1,9 +1,5 @@
-const fs = require('fs');
-const source = fs.readFileSync('./add.wasm');
+const source = await Bun.file('add.wasm').arrayBuffer();
+const result = await WebAssembly.instantiate(source, { env: { print: (x) => console.log(x) } });
+const add = result.instance.exports.add;
 
-WebAssembly.instantiate(source, {env: { print: (x) => console.log(x) } })
-.then((result) => {
-    const add = result.instance.exports.add;
-        let a = add(1, 2);
-        console.log(a);
-});
+console.log("data is", add(5, 5));
