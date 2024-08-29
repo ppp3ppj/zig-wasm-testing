@@ -1,8 +1,14 @@
 ### zig ###
 # Zig programming language
 
-zig-cache/
-zig-out/
-build/
-build-*/
-docgen_tmp/
+/.zig-cache/
+/zig-out/
+/answers/
+/patches/healed/
+/output/
+
+# Leave this in here for older zig versions
+/zig-cache/
+
+*.wasm
+*.wasm.o
