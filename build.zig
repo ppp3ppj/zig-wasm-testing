@@ -28,6 +28,19 @@ pub fn build(b: *std.Build) void {
     // location when the user invokes the "install" step (the default step when
     // running `zig build`).
     //b.installArtifact(lib);
+    const target_wasm = b.resolveTargetQuery(.{.cpu_arch = .wasm32,.os_tag = .freestanding,});
+    const double_string_exe = b.addExecutable(.{
+        .name = "double_string",
+        .root_source_file = b.path("src/double_string.zig"),
+        .target = target_wasm,
+        .optimize = .ReleaseFast,
+        .version = .{ .major = 0, .minor = 0, .patch = 1},
+    });
+
+    double_string_exe.entry = .disabled;
+    double_string_exe.rdynamic = true;
+    b.installArtifact(double_string_exe);
+
 
     const exe = b.addExecutable(.{
         .name = "zig-wasm-testing",
