@@ -37,7 +37,7 @@ console.log("data is", add(5, 5));
 
 
 {
-    const sourceDoubleString = await Bun.file('double_string.wasm').arrayBuffer();
+    const sourceDoubleString = await Bun.file('zig-out/bin/double_string.wasm').arrayBuffer();
     const { instance } = await WebAssembly.instantiate(sourceDoubleString, { env: { print: (x) => console.log(x) } });
     const { doubleString, memory} = instance.exports;
 
