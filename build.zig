@@ -41,6 +41,17 @@ pub fn build(b: *std.Build) void {
     double_string_exe.rdynamic = true;
     b.installArtifact(double_string_exe);
 
+    const device_info_exe = b.addExecutable(.{
+        .name = "device_info",
+        .root_source_file = b.path("src/device_info.zig"),
+        .target = target_wasm,
+        .optimize = .ReleaseFast,
+        .version = .{ .major = 0, .minor = 0, .patch = 1},
+    });
+
+    device_info_exe.entry = .disabled;
+    device_info_exe.rdynamic = true;
+    b.installArtifact(device_info_exe);
 
     const exe = b.addExecutable(.{
         .name = "zig-wasm-testing",
